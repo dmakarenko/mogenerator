@@ -97,7 +97,8 @@ NSString  *gCustomBaseClassForced;
     if (!forcedBaseClass) {
         NSEntityDescription *superentity = [self superentity];
         if (superentity) {
-            return [superentity managedObjectClassName];
+            NSString *superentityClassName = [superentity managedObjectClassName];
+            return (superentityClassName && ([superentityClassName length] > 0)) ? superentityClassName : @"NSManagedObject";
         } else {
             return gCustomBaseClass ? gCustomBaseClass : @"NSManagedObject";
         }
