@@ -94,10 +94,23 @@ extern const struct <$managedObjectClassName$>FetchedProperties {<$foreach Fetch
 
 @interface _<$managedObjectClassName$> (CoreDataGeneratedAccessors)
 <$foreach Relationship noninheritedRelationships do$><$if Relationship.isToMany$>
+<$if !Relationship.jr_isOrdered$>
 - (void)add<$Relationship.name.initialCapitalString$>:(<$Relationship.immutableCollectionClassName$>*)value_;
 - (void)remove<$Relationship.name.initialCapitalString$>:(<$Relationship.immutableCollectionClassName$>*)value_;
 - (void)add<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
 - (void)remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
+<$else$>
+- (void)insertObject:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_ in<$Relationship.name.initialCapitalString$>AtIndex:(NSUInteger)index_;
+- (void)removeObjectFrom<$Relationship.name.initialCapitalString$>AtIndex:(NSUInteger)index_;
+- (void)insert<$Relationship.name.initialCapitalString$>:(NSArray*)values_ atIndexes:(NSIndexSet*)indexes_;
+- (void)remove<$Relationship.name.initialCapitalString$>AtIndexes:(NSIndexSet*)indexes_;
+- (void)replaceObjectIn<$Relationship.name.initialCapitalString$>AtIndex:(NSUInteger)index_ withObject:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
+- (void)replace<$Relationship.name.initialCapitalString$>AtIndexes:(NSIndexSet*)indexes_ with<$Relationship.name.initialCapitalString$>:(NSArray*)values_;
+- (void)add<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
+- (void)remove<$Relationship.name.initialCapitalString$>Object:(<$Relationship.destinationEntity.managedObjectClassName$>*)value_;
+- (void)add<$Relationship.name.initialCapitalString$>:(<$Relationship.immutableCollectionClassName$>*)values_;
+- (void)remove<$Relationship.name.initialCapitalString$>:(<$Relationship.immutableCollectionClassName$>*)values_;
+<$endif$>
 <$endif$><$endforeach do$>
 @end
 
